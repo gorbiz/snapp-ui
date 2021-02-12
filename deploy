@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# ./deploy   <-- deploy files
+# ./deploy x <-- also `npm install`
+
+scp -r *.js *.json views/ mede:cam
+[ $# -eq 1 ] && ssh mede 'cd cam && npm i'
+ssh mede 'pm2 restart all'
