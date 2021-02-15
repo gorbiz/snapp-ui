@@ -1,5 +1,8 @@
-# Snaps user interface
+# Snapp user interface
 A web interface to view photo series as timelapses.
+
+## Usage
+Click (or tap) the right / left half of the image to go to the next / previous image.
 
 # Start it
 ```sh

@@ -51,9 +51,10 @@ html
 
       var files = !{JSON.stringify(files)}
       var baseUrl = '#{baseUrl}'
-      var i = files.length - 1
+      var index = files.length - 1
 
-      function setImg (img) {
+      function updateImg () {
+        var img = files[index]
         var elem = document.getElementById('display')
         elem.style.backgroundImage = `url(${baseUrl}${img})`
       }
@@ -68,13 +69,13 @@ html
       }
 
       function nav (dir) {
-        if (i + dir < 0) return
-        if (i + dir > files.length - 1) return
-        i += dir
-        setImg(files[i])
+        if (files[index + dir]) {
+          index += dir
+          updateImg()
+        }
       }
 
-      setImg(files[i])
+      updateImg()
 
       // preload images
       var images = []
