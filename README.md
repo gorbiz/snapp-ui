@@ -43,16 +43,7 @@ chromium http://localhost:3000/poor-persons-secret/ # URL no one can guess 😂
 
 ## Deploy script example
 
-Assuming `~/.ssh/config` contains something like this:
-```
-Host server
-  Hostname my-server.com
-  User my-username
-  Port 2348
-```
-And that you exchanged keys with `server`, ex. by running `ssh-copy-id server`.
-
-`deploy.sh`:
+`deploy.sh`
 ```sh
 #!/bin/bash
 
@@ -64,3 +55,13 @@ scp -r *.js *.json views/ server:snapp-ui
 ssh server '. ~/.profile; pm2 restart all'
 ```
 
+### PS. Assuming...
+
+`~/.ssh/config` contains something like:
+```
+Host server
+  Hostname my-server.com
+  User my-username
+  Port 22
+```
+And that you exchanged keys with `server`, ex. by running `ssh-copy-id server`.
