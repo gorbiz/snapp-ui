@@ -1,8 +1,8 @@
 const express = require('express')
 const fs = require('fs')
 
-const imgPath = process.env.IMG_PATH || './images'
-const baseUrl = process.env.BASE_URL || 'base-url'
+const imgPath = process.env.IMG_PATH || '../snaps'
+const baseUrl = process.env.BASE_URL || '/'
 
 const app = express()
 
@@ -13,12 +13,12 @@ app.use((req, res, next) => {
 
 app.set('view engine', 'pug')
 
-app.get(`/${baseUrl}`, (req, res) => {
+app.get(baseUrl, (req, res) => {
   const files = fs.readdirSync(imgPath).sort()
   res.render('index', { files, baseUrl })
 })
 
-app.use(`/${baseUrl}`, express.static(imgPath))
+app.use(`${baseUrl}`, express.static(imgPath))
 
 app.get('*', (req, res) => {
   res.sendStatus(404)

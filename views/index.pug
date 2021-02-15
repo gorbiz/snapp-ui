@@ -53,13 +53,12 @@ html
     script.
 
       var files = !{JSON.stringify(files)}
-      var baseUrl = "#{baseUrl}"
-      console.log({ baseUrl })
+      var baseUrl = '#{baseUrl}'
       var i = files.length - 1
 
       function setImg (img) {
         var elem = document.getElementById('display')
-        elem.style.backgroundImage = `url(/${baseUrl}/${img})`
+        elem.style.backgroundImage = `url(${baseUrl}${img})`
       }
 
       function toggleFullscreen () {
@@ -84,5 +83,5 @@ html
       var images = []
       for (var i = files.length - 1; i >= 0; i--) {
         images[i] = new Image()
-        images[i].src = `/${baseUrl}/${files[i]}`
+        images[i].src = `${baseUrl}${files[i]}`
       }
