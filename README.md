@@ -3,7 +3,7 @@ A web interface to view photo series as timelapses.
 
 # Start it
 ```sh
-git clone git@github.com:gorbiz/snaps-ui.git # get the code
+git clone git@github.com:gorbiz/snapp-ui.git # get the code
 cd snaps-ui
 npm install                                  # install dependencies
 IMG_PATH=../snaps node index.js              # start the appliaction
