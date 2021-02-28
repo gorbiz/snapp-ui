@@ -50,7 +50,7 @@ chromium http://localhost:3000/poor-persons-secret/ # URL no one can guess 😂
 # ./deploy   <-- deploy files
 # ./deploy x <-- also `npm install`
 
-scp -r *.js *.json views/ server:snapp-ui
+scp -r *.js *.json *.svg views/ server:snapp-ui
 [ $# -eq 1 ] && ssh server '. ~/.profile; cd snapp-ui && npm i'
 ssh server '. ~/.profile; pm2 restart all'
 ```
