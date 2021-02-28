@@ -16,7 +16,7 @@ app.use((req, res, next) => {
 app.set('view engine', 'pug')
 
 app.get(baseUrl, (req, res) => {
-  const files = fs.readdirSync(imgPath).sort()
+  const files = fs.readdirSync(imgPath).filter((filename) => /.+\.(png|jpe?g)$/i.test(filename)).sort()
   res.render('index', { title, baseUrl, files })
 })
 
