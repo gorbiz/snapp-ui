@@ -1,3 +1,5 @@
+<img align="left" src="time-lapse.svg" width="122" height="122">
+
 # Snapp user interface
 A web interface to view photo series as timelapses.
 
