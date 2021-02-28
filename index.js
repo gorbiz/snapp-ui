@@ -20,6 +20,10 @@ app.get(baseUrl, (req, res) => {
   res.render('index', { title, baseUrl, files })
 })
 
+app.get('/favicon.ico', (req, res) => { // NOTE disrespect BASE_URL - ok?
+  res.setHeader('content-type', 'image/svg+xml')
+  res.send(fs.readFileSync('time-lapse.svg'))
+})
 app.use(`${baseUrl}`, express.static(imgPath))
 
 app.get('*', (req, res) => {
