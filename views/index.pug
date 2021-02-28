@@ -83,3 +83,9 @@ html
         images[i] = new Image()
         images[i].src = `${baseUrl}${files[i]}`
       }
+
+      document.onkeydown = function (evt) {
+        evt = evt || window.event
+        if (evt.keyCode === 37) return nav(-1)
+        if (evt.keyCode === 39) return nav(1)
+      }
