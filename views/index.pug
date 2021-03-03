@@ -26,32 +26,37 @@ html
         width: 25vw;
         height: 12vh;
       }
-      #nav-left, #nav-right {
+      #nav-prev, #nav-next {
         position: fixed;
         top: 0;
         opacity: 0.5;
         min-height: 100vh;
         width: 50vw;
       }
-      #nav-left {
+      #nav-prev {
         left: 0;
       }
-      #nav-right {
+      #nav-next {
         right: 0;
       }
     title= title
   body
     #display
-    #nav-left(onclick="nav(-1)")
-    #nav-right(onclick="nav(1)")
-    #fullscreen-button(onclick="toggleFullscreen()")
-      | fullscreen
+    #nav-prev
+    #nav-next
+    #fullscreen-button fullscreen
 
     script.
-
       var files = !{JSON.stringify(files)}
       var baseUrl = '#{baseUrl}'
       var index = files.length - 1
+
+      // touch / click & hold to "play"
+      var repeatDelay = +localStorage.repeatDelay || 200
+      var repeatRate = +localStorage.repeatRate || 30
+      var repeatTimer = null
+      var touchStartEvent = null
+      var lastUpTs = 0
 
       function updateImg () {
         var img = files[index]
@@ -74,6 +79,79 @@ html
           updateImg()
         }
       }
+
+      function down (dir) {
+        clearTimeout(repeatTimer)
+        repeatTimer = setTimeout(() => { repeat(dir) }, repeatDelay)
+      }
+
+      function repeat (dir) {
+        nav(dir)
+        repeatTimer = setTimeout(() => { repeat(dir) }, repeatRate)
+      }
+
+      function up (dir) {
+        clearTimeout(repeatTimer)
+        var ts = +new Date()
+        if (ts - lastUpTs < 10) return // assume mouse + touch event of same origin
+        lastUpTs = ts
+        nav(dir)
+      }
+
+      function stopRepeat () {
+        clearTimeout(repeatTimer)
+      }
+
+      function move (e) { // check if touch moved too much, then cancel "play"
+        if (!touchStartEvent) return
+        var x = Math.abs(touchStartEvent.targetTouches[0].clientX - e.targetTouches[0].clientX)
+        var y = Math.abs(touchStartEvent.targetTouches[0].clientY - e.targetTouches[0].clientY)
+        if (x + y > 100) { // XXX "100" VERY arbitrary
+          stopRepeat()
+          return true
+        }
+      }
+
+      // "shortcut" functions
+      function startPrev (e) {
+        touchStartEvent = e
+        down(-1)
+      }
+      function startNext (e) {
+        touchStartEvent = e
+        down(1)
+      }
+      function stopPrev (e) {
+        up(-1)
+      }
+      function stopNext (e) {
+        up(1)
+      }
+
+      document.getElementById('fullscreen-button').addEventListener('click', toggleFullscreen), false
+
+      var ePrev = document.getElementById('nav-prev')
+      var eNext = document.getElementById('nav-next')
+      var btnFullscreen = document.getElementById('fullscreen-button')
+
+      btnFullscreen.addEventListener('click', toggleFullscreen), false
+
+      ePrev.addEventListener('touchstart', startPrev)
+      ePrev.addEventListener('touchend', stopPrev)
+      eNext.addEventListener('touchstart', startNext)
+      eNext.addEventListener('touchend', stopNext)
+
+      ePrev.addEventListener('mousedown', startPrev)
+      ePrev.addEventListener('mouseup', stopPrev)
+      eNext.addEventListener('mousedown', startNext)
+      eNext.addEventListener('mouseup', stopNext)
+
+      // NOTE are these needed?
+      ePrev.addEventListener('touchmove', move)
+      eNext.addEventListener('touchmove', move)
+      // NOTE are these needed?
+      ePrev.addEventListener('touchcancel', stopRepeat)
+      eNext.addEventListener('touchcancel', stopRepeat)
 
       updateImg()
 
