@@ -128,13 +128,9 @@ html
         up(1)
       }
 
-      document.getElementById('fullscreen-button').addEventListener('click', toggleFullscreen), false
-
+      document.getElementById('fullscreen-button').addEventListener('click', toggleFullscreen)
       var ePrev = document.getElementById('nav-prev')
       var eNext = document.getElementById('nav-next')
-      var btnFullscreen = document.getElementById('fullscreen-button')
-
-      btnFullscreen.addEventListener('click', toggleFullscreen), false
 
       ePrev.addEventListener('touchstart', startPrev)
       ePrev.addEventListener('touchend', stopPrev)
