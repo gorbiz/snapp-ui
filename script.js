@@ -17,8 +17,10 @@ function toggleFullscreen() {
   if (!document.fullscreen) {
     var elem = document.getElementsByTagName('body')[0]
     elem.requestFullscreen()
+    document.getElementById('fullscreen-button').classList.add('fullscreen')
   } else {
     document.exitFullscreen()
+    document.getElementById('fullscreen-button').classList.remove('fullscreen')
   }
 }
 

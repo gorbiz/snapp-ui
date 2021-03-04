@@ -22,7 +22,6 @@ body {
   top            : 0;
   left           : 0;
   font-size      : 28px;
-  /* font-weight    : bold; */
   padding        : 8px 10px 10px 10px;
   border-radius  : 30px;
   width: 20px;
@@ -31,7 +30,6 @@ body {
 }
 
 #counter {
-  /* display: none; */
   display        : flex;
   justify-content: center;
   align-items    : center;
@@ -41,8 +39,7 @@ body {
   position       : fixed;
   top            : 0;
   left           : 0;
-  padding        : 10px;
-  border-radius  : 10px;
+  padding        : 5px;
 }
 
 #fullscreen-button {
@@ -50,15 +47,19 @@ body {
   display        : flex;
   justify-content: center;
   align-items    : center;
-  font-family    : monospace;
   opacity        : 0.25;
   background     : rgb(255, 255, 255);
   position       : fixed;
   top            : 0;
   right          : 0;
-  width          : 25vw;
-  height         : 12vh;
+  width          : 32px;
+  height         : 32px;
 }
+
+#fullscreen-button.fullscreen svg#icon-exit-fullscreen { display: block; }
+#fullscreen-button:not(.fullscreen) svg#icon-exit-fullscreen { display: none; }
+#fullscreen-button.fullscreen svg#icon-fullscreen { display: none; }
+#fullscreen-button:not(.fullscreen) svg#icon-fullscreen { display: block; }
 
 #nav-prev,
 #nav-next {
