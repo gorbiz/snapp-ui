@@ -130,6 +130,6 @@ fetch('files/').then(res => res.json()).then(data => {
     if (evt.keyCode === 39) return nav(1)
   }
 
-  var preload = ImagePreloader({ files, cacheAhead: 10000 }) // effectively don't the cacheAhead limit at this time, unsure if the UX gets good... prio instead: Auto-sessions
+  var preload = ImagePreloader({ files, cacheAhead: 100 }) // high limit at this time, unsure if the UX gets good... prio instead: Auto-sessions
   preload.fromIndex(index)
 })
