@@ -39,7 +39,7 @@ fetch('files/').then(res => res.json()).then(data => {
   var elCounter = document.getElementById('counter')
   function updateImg(img) {
     elDisplay.style.backgroundImage = `url(${baseUrl}${img})`
-    elCounter.innerText = `${index} / ${files.length}`
+    elCounter.innerText = `${index} / ${files.length - 1}`
 
   }
 
