@@ -24,9 +24,14 @@ function toggleFullscreen() {
   }
 }
 
+function toggleMenu () {
+  var elem = document.getElementById('menu').classList.toggle('visible')
+}
+
 // fetch file list
 fetch('files/').then(res => res.json()).then(data => {
   var files = data.files
+  // if (Array.isArray(data.files[0]))
   if (data.title) document.title = data.title
   var index = files.length - 1
 
@@ -75,7 +80,7 @@ fetch('files/').then(res => res.json()).then(data => {
     clearTimeout(repeatTimer)
   }
 
-  function move(e) { // check if touch moved too much, then cancel "play"
+  function move (e) { // check if touch moved too much, then cancel "play"
     if (!touchStartEvent) return
     var x = Math.abs(touchStartEvent.targetTouches[0].clientX - e.targetTouches[0].clientX)
     var y = Math.abs(touchStartEvent.targetTouches[0].clientY - e.targetTouches[0].clientY)
@@ -105,6 +110,7 @@ fetch('files/').then(res => res.json()).then(data => {
   updateImg(files[index])
 
   document.getElementById('fullscreen-button').addEventListener('click', toggleFullscreen)
+  document.getElementById('menu-button').addEventListener('click', toggleMenu)
   var ePrev = document.getElementById('nav-prev')
   var eNext = document.getElementById('nav-next')
 
