@@ -31,6 +31,7 @@ Example using pm2:
 ```sh
 npm install --global pm2
 IMG_PATH=../snaps PORT=3000 pm2 start
+pm2 save
 pm2 startup
 # follow pm2's instructions
 ```
