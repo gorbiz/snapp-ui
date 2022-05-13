@@ -25,7 +25,8 @@ function toggleFullscreen() {
 }
 
 // fetch file list
-fetch('files/').then(res => res.json()).then(data => {
+const folder = window.location.search.split('folder=')[1] || ''
+fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var files = data.files
   if (data.title) document.title = data.title
   var index = files.length - 1
@@ -40,7 +41,7 @@ fetch('files/').then(res => res.json()).then(data => {
   var elDisplay = document.getElementById('display')
   var elCounter = document.getElementById('counter')
   function updateImg(img) {
-    elDisplay.style.backgroundImage = `url(${baseUrl}${img})`
+    elDisplay.style.backgroundImage = `url(${baseUrl}${folder}${img})`
     elCounter.innerText = `${index} / ${files.length - 1}`
 
   }
