@@ -1,8 +1,5 @@
 const express = require('express')
 const fs = require('fs')
-const multer = require('multer')
-
-const uploadDir = process.env.BASE_DIR || './up'
 
 const imgPath = process.env.IMG_PATH || '../snaps'
 const baseUrl = process.env.BASE_URL || '/'
