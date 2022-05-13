@@ -26,7 +26,7 @@ app.post('/upload/:id', upload.single('imageFile'), (req, res) => {
   })
 })
 
-const port = process.env.PORT || 3003
+const port = process.env.PORT || 8080
 app.listen(port, () => {
   console.log(`Server is listening on porT ${port}`)
 })
