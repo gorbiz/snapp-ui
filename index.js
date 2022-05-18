@@ -16,9 +16,10 @@ function onlyFolders (path) {
   return list
 }
 
-function getLastFile (path) {
+function getLastFile (path, ext = 'jpg') {
+  const cmd = `(cd ${path} && ls -1 *.${ext}) | tail -n1`
   return new Promise((resolve, reject) => {
-    exec(`ls -1 ${path} | tail -n1`, (error, stdout, stderr) => {
+    exec(cmd, (error, stdout, stderr) => {
       if (error) return reject(error)
       resolve(stdout.trim())
     })
