@@ -1,0 +1,5 @@
+img { height: 50vh; }
+section {
+  display: flex;
+  flex-wrap: wrap;
+}

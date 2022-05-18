@@ -1,9 +1,4 @@
-body {
-  margin: 0;
-}
-
 #display {
-  background-color : rgb(64, 64, 92);
   background-repeat: no-repeat;
   background-size  : contain;
   width            : 100%;

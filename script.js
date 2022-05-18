@@ -1,6 +1,3 @@
-var baseUrl = window.location.pathname // NOTE is this "safe"
-if (baseUrl.slice(-1) !== '/') window.location.href += '/'
-
 function ImagePreloader({ files, cacheAhead = 100 }) {
   var images = []
   function fromIndex(index) {
@@ -41,7 +38,7 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var elDisplay = document.getElementById('display')
   var elCounter = document.getElementById('counter')
   function updateImg(img) {
-    elDisplay.style.backgroundImage = `url(${baseUrl}${folder}${img})`
+    elDisplay.style.backgroundImage = `url(${folder}${img})`
     elCounter.innerText = `${index} / ${files.length - 1}`
 
   }

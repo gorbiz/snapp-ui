@@ -3,7 +3,6 @@ const fs = require('fs')
 const { exec } = require('child_process')
 
 const imgPath = process.env.IMG_PATH || '../snaps'
-const baseUrl = process.env.BASE_URL || '/'
 const title = process.env.TITLE || 'snaps-ui'
 const port = process.env.PORT || 3000
 
@@ -45,7 +44,7 @@ app.use((req, res, next) => {
 
 app.set('view engine', 'pug')
 
-app.get(baseUrl, async (req, res) => {
+app.get('/', async (req, res) => {
   res.setHeader('content-type', 'text/html')
   const folders = onlyFolders(imgPath)
   if (!req.subfolder && folders) {
@@ -53,45 +52,38 @@ app.get(baseUrl, async (req, res) => {
     for (const folder of folders) {
       html += await makePreview(folder) + '\n'
     }
-    html = `
-      <style>
-        img { height: 50vh; }
-        section {
-          display: flex;
-          flex-wrap: wrap;
-        }
-      </style>
-      <section>${html}</section>`
-    return res.send(html)
+
+    const content = fs.readFileSync(`${__dirname}/index.html`).toString().replace('{{ main }}', html)
+    return res.send(content)
   }
-  var content = fs.readFileSync(`${__dirname}/index.html`)
+  var content = fs.readFileSync(`${__dirname}/photo-page.html`)
   if (process.env.LIVERELOAD) { // NOTE to get live reload working on any browser...
     content += `<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>`
   }
   res.send(content)
 })
 
-app.get(`${baseUrl}files`, (req, res) => {
+app.get('/files', (req, res) => {
   let path = imgPath
   if (req.subfolder) path += `/${req.subfolder}`
   const files = fs.readdirSync(path).filter((filename) => /.+\.(png|jpe?g)$/i.test(filename)).sort()
   res.send({ title, files })
 })
 
-app.get(`${baseUrl}videos`, (req, res) => {
+app.get('/videos', (req, res) => {
   // TODO ~
-  const html = `<body style="margin: 0;"><video controls>
+  const html = `<body><video controls>
     <source src="/videos/cam0.webm" type="video/webm">
     Your browser does not support the video element. Kindly update it to latest version.
   </video></body>`
   res.send(html)
 })
 
-app.use(`${baseUrl}script.js`, express.static('script.js'))
-app.use(`${baseUrl}style.css`, express.static('style.css'))
+app.use('/script.js', express.static('script.js'))
 app.use('/favicon.ico', express.static('time-lapse.svg'))
 
-app.use(`${baseUrl}`, express.static(imgPath))
+app.use('', express.static(imgPath))
+app.use('/style/', express.static('style'))
 
 app.get('*', (req, res) => {
   res.sendStatus(404)

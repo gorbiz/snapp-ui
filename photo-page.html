@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style/style.css">
+  <link rel="stylesheet" href="/style/photo-page.css">
+  <title>SnAPP</title>
+</head>
+<body>
+  <div id="display"></div>
+  <div id="nav-prev"></div>
+  <div id="nav-next"></div>
+  <div id="fullscreen-button">
+    <svg id="icon-fullscreen" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 18 18"><path d="M4.5 11H3v4h4v-1.5H4.5V11zM3 7h1.5V4.5H7V3H3v4zm10.5 6.5H11V15h4v-4h-1.5v2.5zM11 3v1.5h2.5V7H15V3h-4z"/></svg>
+    <svg id="icon-exit-fullscreen" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 18 18"><path d="M3 12.5h2.5V15H7v-4H3v1.5zm2.5-7H3V7h4V3H5.5v2.5zM11 15h1.5v-2.5H15V11h-4v4zm1.5-9.5V3H11v4h4V5.5h-2.5z"/></svg>
+  </div>
+  <div id="counter">n / total</div>
+  <div id="menu">☰</div>
+  <script>
+    if (window.location.href.slice(-1) !== '/') window.location.href += '/'
+  </script>
+  <script src="/script.js" type="text/javascript"></script>
+</body>
+</html>
