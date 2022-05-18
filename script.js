@@ -1,10 +1,12 @@
+const folder = window.location.search.split('folder=')[1] || ''
+
 function ImagePreloader({ files, cacheAhead = 100 }) {
   var images = []
   function fromIndex(index) {
     for (var i = index; i >= 0 && i > index - cacheAhead; i--) {
       if (images[i]) continue // don't re-cache
       images[i] = new Image()
-      images[i].src = `${files[i]}`
+      images[i].src = `${folder}${files[i]}`
     }
   }
   return { fromIndex }
@@ -22,7 +24,6 @@ function toggleFullscreen() {
 }
 
 // fetch file list
-const folder = window.location.search.split('folder=')[1] || ''
 fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var files = data.files
   if (data.title) document.title = data.title
