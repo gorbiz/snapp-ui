@@ -3,3 +3,13 @@ section {
   display: flex;
   flex-wrap: wrap;
 }
+
+figure figcaption {
+  display: flex;
+  justify-content: space-between;
+}
+
+figure figcaption span {
+  font-weight: bold;
+  color: white;
+}
