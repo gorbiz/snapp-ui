@@ -6,7 +6,7 @@ function ImagePreloader({ files, cacheAhead = 100 }) {
     for (var i = index; i >= 0 && i > index - cacheAhead; i--) {
       if (images[i]) continue // don't re-cache
       images[i] = new Image()
-      images[i].src = `${folder}${files[i]}`
+      images[i].src = `/${folder}${files[i]}`
     }
   }
   return { fromIndex }
@@ -39,7 +39,7 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var elDisplay = document.getElementById('display')
   var elCounter = document.getElementById('counter')
   function updateImg(img) {
-    elDisplay.style.backgroundImage = `url(${folder}${img})`
+    elDisplay.style.backgroundImage = `url(/${folder}${img})`
     elCounter.innerText = `${index} / ${files.length - 1}`
 
   }
