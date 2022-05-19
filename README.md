@@ -43,9 +43,13 @@ chromium http://localhost:3000/poor-persons-secret/ # URL no one can guess 😂
 ```
 
 # Developing
+```sh
+npm i -g nodemon
+IMG_PATH=../photos nodemon .
+```
 
 ## live reload
-1. `IMG_PATH=../snaps LIVERELOAD=1 node .`
+1. `IMG_PATH=../photos LIVERELOAD=1 node .`
 2. Code away! ...and see changes in realtime on any device!
 
 ## Deploy script example

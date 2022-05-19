@@ -13,3 +13,10 @@ figure figcaption span {
   font-weight: bold;
   color: white;
 }
+
+figure .filename {
+  position: absolute;
+  display: block;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 2px 8px;
+}

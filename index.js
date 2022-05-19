@@ -29,6 +29,7 @@ async function makePreview (folder) {
   const file = await getLastFile(`${imgPath}/${folder}`)
   const film = folder.replaceAll(':', '-').toLowerCase() + '.webm'
   return `<figure>
+      <span class="filename">${file}</span>
       <a href="/?folder=${folder}"><img src="/${folder}/${file}" /></a>
       <figcaption><span>${folder}</span><a href="/?folder=${folder}">🖼️ photos</a> <a href='/videos/${film}'>📽️ video</a></figcaption>
     </figure></a>`
