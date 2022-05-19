@@ -44,8 +44,8 @@ chromium http://localhost:3000/poor-persons-secret/ # URL no one can guess 😂
 
 # Developing
 ```sh
-npm i -g nodemon
-IMG_PATH=../photos nodemon .
+npm run dev
+# or ~: IMG_PATH=../photos nodemon .
 ```
 
 ## live reload

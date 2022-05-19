@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "IMG_PATH=../photos LIVERELOAD=1 nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,6 +14,7 @@
     "multer": "^1.4.4"
   },
   "devDependencies": {
-    "livereload": "^0.9.1"
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.16"
   }
 }
