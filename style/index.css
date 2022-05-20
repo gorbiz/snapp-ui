@@ -20,3 +20,11 @@ figure .filename {
   background: rgba(255, 255, 255, 0.5);
   padding: 2px 8px;
 }
+
+figure .filename:before {
+  content: '⬤ ';
+  text-shadow: 1px 1px #22;
+}
+figure.age-below-10m .filename:before { color: rgb(0, 200, 0);}
+figure.age-below-60m .filename:before { color: rgb(255, 127, 0);}
+figure.age-above-60m .filename:before { color: rgb(255, 0, 0);}
