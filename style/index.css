@@ -23,7 +23,7 @@ figure .filename {
 
 figure .filename:before {
   content: '⬤ ';
-  text-shadow: 1px 1px #22;
+  text-shadow: 1px 1px #222;
 }
 figure.age-below-10m .filename:before { color: rgb(0, 200, 0);}
 figure.age-below-60m .filename:before { color: rgb(255, 127, 0);}
