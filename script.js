@@ -37,12 +37,12 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var lastUpTs = 0
 
   var elDisplay = document.getElementById('display')
-  var elCounter = document.getElementById('counter')
   var elFilename = document.getElementById('filename')
+  var elCounter = document.getElementById('counter')
   function updateImg (img) {
     elDisplay.style.backgroundImage = `url(/${folder}${img})`
-    elCounter.innerText = `${index} / ${files.length - 1}`
     elFilename.innerText = img
+    elCounter.innerText = `[${index} / ${files.length - 1}]`
   }
 
   function nav(dir) {
