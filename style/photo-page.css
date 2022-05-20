@@ -24,17 +24,20 @@
   margin: 0.25em;
 }
 
-#counter {
-  display        : flex;
-  justify-content: center;
-  align-items    : center;
+.info #counter, .info #filename {
   font-family    : monospace;
-  opacity        : 0.33;
-  background     : rgb(255, 255, 255);
-  position       : fixed;
-  top            : 0;
-  left           : 0;
+  background     : rgba(255, 255, 255, 0.4);
+  opacity: 0.75;
   padding        : 5px;
+  position       : fixed;
+  left           : 0;
+}
+.info #filename {
+  top            : 0;
+}
+.info #counter {
+  bottom            : 0;
+  margin-bottom: 1.5em;
 }
 
 #fullscreen-button {

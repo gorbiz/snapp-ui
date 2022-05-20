@@ -38,10 +38,11 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
 
   var elDisplay = document.getElementById('display')
   var elCounter = document.getElementById('counter')
-  function updateImg(img) {
+  var elFilename = document.getElementById('filename')
+  function updateImg (img) {
     elDisplay.style.backgroundImage = `url(/${folder}${img})`
     elCounter.innerText = `${index} / ${files.length - 1}`
-
+    elFilename.innerText = img
   }
 
   function nav(dir) {
@@ -123,7 +124,6 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   // NOTE are these needed?
   ePrev.addEventListener('touchcancel', stopRepeat)
   eNext.addEventListener('touchcancel', stopRepeat)
-
 
   document.onkeydown = function (evt) {
     evt = evt || window.event
