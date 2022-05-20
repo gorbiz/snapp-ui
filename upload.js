@@ -12,6 +12,7 @@ app.post('/upload/:id', upload.single('imageFile'), (req, res) => {
   const { id } = req.params
   const dir = `${baseDir}/${id}`
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
+  // const filename = new Date().toLocaleString('sv-EN').replace(' ', '_').replaceAll(':', '').split('.')[0] + '.jpg' // Was considering this...
   const filename = new Date().toISOString().replace('T', '_').replaceAll(':', '').split('.')[0] + '.jpg' // ex 2022-05-13_125229.jpg
   fs.rename(req.file.path, `${dir}/${filename}`, (err) => {
     if (err) {
