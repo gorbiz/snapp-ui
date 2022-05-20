@@ -4,6 +4,13 @@ section {
   flex-wrap: wrap;
 }
 
+figure .figure-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
 figure figcaption {
   display: flex;
   justify-content: space-between;
@@ -14,12 +21,8 @@ figure figcaption span {
   color: white;
 }
 
-figure .filename {
-  position: absolute;
-  display: block;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 2px 8px;
-}
+/* figure .filename {} */
+figure .age { opacity: 0.66; }
 
 figure .filename:before {
   content: '⬤ ';

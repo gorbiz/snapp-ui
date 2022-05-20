@@ -27,18 +27,46 @@ function exec (cmd) {
 async function getLastFile (path, ext = 'jpg') {
   const file = await exec(`(cd ${path} && ls -1 *.${ext}) | tail -n1`)
   const mtime = fs.statSync(`${path}/${file}`).mtime
-  const age = (new Date() - mtime) / 1000 // seconds
-  return { file, age }
+  return { file, mtime }
+}
+
+// making pretty timestamps
+function timeago (ts) {
+  const ms = +new Date() - +new Date(ts)
+  var seconds = Math.floor(ms / 1000)
+
+  if (!seconds) return 'just now'
+
+  const days = Math.floor(seconds / (3600 * 24))
+  seconds -= days * 3600 * 24
+  const hours = Math.floor(seconds / 3600)
+  seconds -= hours * 3600
+  const minutes = Math.floor(seconds / 60)
+  seconds -= minutes * 60
+
+  if (days) {
+    // ex 1 day & 5 hours ago
+    return `${days} days ${hours} hr ago`
+  } else {
+    // ex 1 hour and 36 minutes ago
+    if (!hours && !minutes) return `${seconds} sec ago`
+    if (!hours) return `${minutes} min ago`
+    return `${hours} hr ${minutes} min ago`
+  }
 }
 
 async function makePreview (folder) {
-  const { file, age } = await getLastFile(`${imgPath}/${folder}`)
+  const { file, mtime } = await getLastFile(`${imgPath}/${folder}`)
+  const age = (new Date() - mtime) / 1000 / 60 // seconds
   let cls = 'age-above-60m'
-  if (age <= 60 * 60) cls = 'age-below-60m'
-  if (age <= 10 * 60) cls = 'age-below-10m'
+  if (age <= 60) cls = 'age-below-60m'
+  if (age <= 10) cls = 'age-below-10m'
   const film = folder.replaceAll(':', '-').toLowerCase() + '.webm'
   return `<figure class="${cls}">
-      <span class="filename">${file}</span>
+      <div class="figure-head">
+        <span class="filename">${file}</span>
+        <span class="age">${timeago(mtime)}</span>
+      </div>
       <a href="/?folder=${folder}"><img src="/${folder}/${file}" /></a>
       <figcaption><span>${folder}</span><a href="/?folder=${folder}">🖼️ photos</a> <a href='/videos/${film}'>📽️ video</a></figcaption>
     </figure></a>`
