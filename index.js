@@ -27,7 +27,8 @@ function exec (cmd) {
 async function getLastFile (path, ext = 'jpg') {
   const file = await exec(`(cd ${path} && ls -1 *.${ext}) | tail -n1`)
   const mtime = fs.statSync(`${path}/${file}`).mtime
-  return { file, mtime }
+  const nr = await exec(`cd ${path} && ls -1 | wc -l`)
+  return { file, mtime, nr }
 }
 
 // making pretty timestamps
@@ -56,7 +57,7 @@ function timeago (ts) {
 }
 
 async function makePreview (folder) {
-  const { file, mtime } = await getLastFile(`${imgPath}/${folder}`)
+  const { file, mtime, nr } = await getLastFile(`${imgPath}/${folder}`)
   const age = (new Date() - mtime) / 1000 / 60 // seconds
   let cls = 'age-above-60m'
   if (age <= 60) cls = 'age-below-60m'
@@ -64,7 +65,7 @@ async function makePreview (folder) {
   const film = folder.replaceAll(':', '-').toLowerCase() + '.webm'
   return `<figure class="${cls}">
       <div class="figure-head">
-        <span class="filename">${file}</span>
+        <span class="filename">${file} · <span class="nr">#${nr.toLocaleString()}</span></span>
         <span class="age">${timeago(mtime)}</span>
       </div>
       <a href="/?folder=${folder}"><img src="/${folder}/${file}" /></a>

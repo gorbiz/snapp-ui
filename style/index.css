@@ -31,3 +31,5 @@ figure .filename:before {
 figure.age-below-10m .filename:before { color: rgb(0, 200, 0);}
 figure.age-below-60m .filename:before { color: rgb(255, 127, 0);}
 figure.age-above-60m .filename:before { color: rgb(255, 0, 0);}
+
+figure .filename .nr { opacity: 0.5; }
