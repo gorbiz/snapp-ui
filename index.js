@@ -27,7 +27,7 @@ function exec (cmd) {
 async function getLastFile (path, ext = 'jpg') {
   const file = await exec(`(cd ${path} && ls -1 *.${ext}) | tail -n1`)
   const mtime = fs.statSync(`${path}/${file}`).mtime
-  const nr = await exec(`cd ${path} && ls -1 | wc -l`)
+  const nr = Number(await exec(`cd ${path} && ls -1 | wc -l`))
   return { file, mtime, nr }
 }
 
