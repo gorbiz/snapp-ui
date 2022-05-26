@@ -9,7 +9,12 @@ figure .figure-head {
   justify-content: space-between;
   padding: 2px 8px;
   background: rgba(255, 255, 255, 0.5);
-  font-size: 11px;
+}
+
+@media screen and (max-width: 800px){
+  figure .figure-head { {
+    font-size: 11px; /* smaller text on mobile screen */
+  }
 }
 
 figure figcaption {
