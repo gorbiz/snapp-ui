@@ -1,4 +1,4 @@
-img { height: 50vh; }
+img { max-width: 100%; }
 section {
   display: flex;
   flex-wrap: wrap;
