@@ -11,11 +11,12 @@ figure .figure-head {
   background: rgba(255, 255, 255, 0.5);
 }
 
-@media screen and (max-width: 800px){
-  figure .figure-head { {
-    font-size: 11px; /* smaller text on mobile screen */
+
+@media (max-width: 1081px) {
+  figure .figure-head {
+    font-size: 9px; /* smaller text on mobile screen */
   }
-}
+};
 
 figure figcaption {
   display: flex;
