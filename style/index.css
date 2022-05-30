@@ -16,7 +16,7 @@ figure .figure-head {
   figure .figure-head {
     font-size: 9px; /* smaller text on mobile screen */
   }
-};
+}
 
 figure figcaption {
   display: flex;
