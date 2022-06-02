@@ -12,7 +12,7 @@ figure .figure-head {
 }
 
 
-@media (max-width: 1000px) { // NOTE The resolution of @gorbiz OnePlus 7 Pro
+@media (max-width: 1080px) { // NOTE The resolution of @gorbiz OnePlus 7 Pro
   figure .figure-head {
     font-size: 10px; /* smaller text on mobile screen */
   }
