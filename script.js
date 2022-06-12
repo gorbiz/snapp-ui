@@ -1,8 +1,8 @@
 const folder = window.location.search.split('folder=')[1] || ''
 
-function ImagePreloader({ files, cacheAhead = 100 }) {
+function ImagePreloader ({ files, cacheAhead = 100 }) {
   var images = []
-  function fromIndex(index) {
+  function fromIndex (index) {
     for (var i = index; i >= 0 && i > index - cacheAhead; i--) {
       if (images[i]) continue // don't re-cache
       images[i] = new Image()
@@ -12,7 +12,7 @@ function ImagePreloader({ files, cacheAhead = 100 }) {
   return { fromIndex }
 }
 
-function toggleFullscreen() {
+function toggleFullscreen () {
   if (!document.fullscreen) {
     var elem = document.getElementsByTagName('body')[0]
     elem.requestFullscreen()
@@ -45,7 +45,7 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
     elCounter.innerText = `[${index} / ${files.length - 1}]`
   }
 
-  function nav(dir) {
+  function nav (dir) {
     if (files[index + dir]) {
       index += dir
       preload.fromIndex(index)
@@ -53,17 +53,17 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
     }
   }
 
-  function down(dir) {
+  function down (dir) {
     clearTimeout(repeatTimer)
     repeatTimer = setTimeout(() => { repeat(dir) }, repeatDelay)
   }
 
-  function repeat(dir) {
+  function repeat (dir) {
     nav(dir)
     repeatTimer = setTimeout(() => { repeat(dir) }, repeatRate)
   }
 
-  function up(dir) {
+  function up (dir) {
     clearTimeout(repeatTimer)
     var ts = +new Date()
     if (ts - lastUpTs < 10) return // assume mouse + touch event of same origin
@@ -71,11 +71,11 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
     nav(dir)
   }
 
-  function stopRepeat() {
+  function stopRepeat () {
     clearTimeout(repeatTimer)
   }
 
-  function move(e) { // check if touch moved too much, then cancel "play"
+  function move (e) { // check if touch moved too much, then cancel "play"
     if (!touchStartEvent) return
     var x = Math.abs(touchStartEvent.targetTouches[0].clientX - e.targetTouches[0].clientX)
     var y = Math.abs(touchStartEvent.targetTouches[0].clientY - e.targetTouches[0].clientY)
@@ -86,21 +86,20 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   }
 
   // "shortcut" functions
-  function startPrev(e) {
+  function startPrev (e) {
     touchStartEvent = e
     down(-1)
   }
-  function startNext(e) {
+  function startNext (e) {
     touchStartEvent = e
     down(1)
   }
-  function stopPrev(e) {
+  function stopPrev (e) {
     up(-1)
   }
-  function stopNext(e) {
+  function stopNext (e) {
     up(1)
   }
-
 
   updateImg(files[index])
 
@@ -108,22 +107,23 @@ fetch(`files/?folder=${folder}`).then(res => res.json()).then(data => {
   var ePrev = document.getElementById('nav-prev')
   var eNext = document.getElementById('nav-next')
 
-  ePrev.addEventListener('touchstart', startPrev)
-  ePrev.addEventListener('touchend', stopPrev)
-  eNext.addEventListener('touchstart', startNext)
-  eNext.addEventListener('touchend', stopNext)
-
-  ePrev.addEventListener('mousedown', startPrev)
-  ePrev.addEventListener('mouseup', stopPrev)
-  eNext.addEventListener('mousedown', startNext)
-  eNext.addEventListener('mouseup', stopNext)
-
-  // NOTE are these needed?
-  ePrev.addEventListener('touchmove', move)
-  eNext.addEventListener('touchmove', move)
-  // NOTE are these needed?
-  ePrev.addEventListener('touchcancel', stopRepeat)
-  eNext.addEventListener('touchcancel', stopRepeat)
+  if (typeof window.ontouchstart === 'object') { // mobile
+    ePrev.addEventListener('touchstart', startPrev)
+    ePrev.addEventListener('touchend', stopPrev)
+    eNext.addEventListener('touchstart', startNext)
+    eNext.addEventListener('touchend', stopNext)
+    // NOTE are these needed?
+    ePrev.addEventListener('touchmove', move)
+    eNext.addEventListener('touchmove', move)
+    // NOTE are these needed?
+    ePrev.addEventListener('touchcancel', stopRepeat)
+    eNext.addEventListener('touchcancel', stopRepeat)
+  } else {
+    ePrev.addEventListener('mousedown', startPrev)
+    ePrev.addEventListener('mouseup', stopPrev)
+    eNext.addEventListener('mousedown', startNext)
+    eNext.addEventListener('mouseup', stopNext)
+  }
 
   document.onkeydown = function (evt) {
     evt = evt || window.event
